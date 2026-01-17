@@ -167,7 +167,7 @@ const Home = () => {
       <Helmet>
         <title>Rusdi Aulia Romadhon | Web Developer Portfolio</title>
         <meta name="description" content="Selamat datang di portofolio resmi Rusdi Aulia Romadhon. Mahasiswa Teknik Informatika dan Web Developer yang ahli dalam React, Javascript, dan Laravel." />
-        <meta name="keywords" content="Rusdi Aulia Romadhon, Rusdi Aulia, Rusdi, Web Developer, Frontend Developer, React Developer, Portofolio Rusdi" />
+        <meta name="keywords" content="Rusdi Aulia Romadhon, Rusdi Aulia, Rusdi, rusdi aulia romadhon, rusdi aulia, rusdi, Web Developer, Frontend Developer, React Developer, Portofolio Rusdi, Portofolio Rusdi Aulia, Portofolio Rusdi Aulia Romadhon, Mahasiswa Teknik Informatika, UIN Syarif Hidayatullah Jakarta, uin jakarta, rusdi aulia romadhon uin jakarta" />
         <meta name="author" content="Rusdi Aulia Romadhon" />
         <meta property="og:title" content="Rusdi Aulia Romadhon - Web Developer" />
         <meta property="og:description" content="Lihat karya dan project terbaru dari Rusdi Aulia Romadhon." />
