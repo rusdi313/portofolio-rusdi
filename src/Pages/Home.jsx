@@ -2,7 +2,8 @@ import React, { useState, useEffect, useCallback, memo } from "react"
 import { Github, Linkedin, Mail, ExternalLink, Instagram, Sparkles } from "lucide-react"
 import AOS from 'aos'
 import 'aos/dist/aos.css'
-import MobileShowcase from "../components/MobileShowcase" // Pastikan import ini ada
+import MobileShowcase from "../components/MobileShowcase"
+import { Helmet } from 'react-helmet-async' // Import untuk SEO
 
 // Memoized Components
 const StatusBadge = memo(() => (
@@ -139,11 +140,47 @@ const Home = () => {
     return () => clearTimeout(timeout);
   }, [handleTyping]);
 
+  // --- Konfigurasi SEO (JSON-LD) ---
+  const personSchema = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Rusdi Aulia Romadhon",
+    "url": "https://portofolio-rusdi.vercel.app/", // Pastikan link ini sesuai
+    "image": "https://rusdi-portofolio.vercel.app/Photo.png",
+    "sameAs": [
+      "https://github.com/rusdi313",
+      "https://www.linkedin.com/in/rusdi-aulia-romadhon-11b44229b/",
+      "https://www.instagram.com/rusdirmdhn_/?hl=id"
+    ],
+    "jobTitle": "Web Developer",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Freelance"
+    },
+    "description": "Portofolio Rusdi Aulia Romadhon, mahasiswa Teknik Informatika dan Web Developer spesialis React JS dan Laravel."
+  };
+
   return (
     <div className="min-h-screen bg-[#030014] overflow-hidden px-[5%] sm:px-[5%] lg:px-[10%]" id="Home">
+      
+      {/* Implementasi Helmet untuk SEO */}
+      <Helmet>
+        <title>Rusdi Aulia Romadhon | Web Developer Portfolio</title>
+        <meta name="description" content="Selamat datang di portofolio resmi Rusdi Aulia Romadhon. Mahasiswa Teknik Informatika dan Web Developer yang ahli dalam React, Javascript, dan Laravel." />
+        <meta name="keywords" content="Rusdi Aulia Romadhon, Rusdi Aulia, Rusdi, Web Developer, Frontend Developer, React Developer, Portofolio Rusdi" />
+        <meta name="author" content="Rusdi Aulia Romadhon" />
+        <meta property="og:title" content="Rusdi Aulia Romadhon - Web Developer" />
+        <meta property="og:description" content="Lihat karya dan project terbaru dari Rusdi Aulia Romadhon." />
+        <meta property="og:image" content="/Photo.png" />
+        <meta property="og:url" content="https://portofolio-rusdi.vercel.app/" />
+        <script type="application/ld+json">
+          {JSON.stringify(personSchema)}
+        </script>
+      </Helmet>
+
       <div className={`relative z-10 transition-all duration-1000 ${isLoaded ? "opacity-100" : "opacity-0"}`}>
         
-        {/* CONTAINER UTAMA: Ditambahkan pt-32 untuk mobile agar tidak ketutup navbar */}
+        {/* CONTAINER UTAMA: Layout Mobile Responsive */}
         <div className="container mx-auto min-h-screen flex flex-col justify-center pt-32 lg:pt-0"> 
           
           <div className="flex flex-col lg:flex-row items-center justify-center md:justify-between gap-10 lg:gap-20">
