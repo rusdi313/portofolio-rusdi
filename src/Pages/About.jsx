@@ -1,7 +1,8 @@
-import React, { useEffect, memo, useMemo } from "react"
+import React, { useEffect, useState, memo, useMemo } from "react"
 import { FileText, Code, Award, Globe, ArrowUpRight, Sparkles, UserCheck } from "lucide-react"
 import AOS from 'aos'
 import 'aos/dist/aos.css'
+import { supabase } from "../supabase" // Pastikan import ini ada
 
 // Memoized Components
 const Header = memo(() => (
@@ -50,7 +51,7 @@ const ProfileImage = memo(() => (
           <div className="absolute inset-0 bg-gradient-to-t from-purple-500/20 via-transparent to-blue-500/20 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-700 hidden sm:block" />
           
           <img
-            src="/rusdi.png"
+            src="/rusdi.png" 
             alt="Profile"
             className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:rotate-2"
             loading="lazy"
@@ -113,21 +114,42 @@ const StatCard = memo(({ icon: Icon, color, value, label, description, animation
 ));
 
 const AboutPage = () => {
-  // Memoized calculations
-  const { totalProjects, totalCertificates, YearExperience } = useMemo(() => {
-    const storedProjects = JSON.parse(localStorage.getItem("projects") || "[]");
-    const storedCertificates = JSON.parse(localStorage.getItem("certificates") || "[]");
-    
-    const startDate = new Date("2023-10-03");
+  // State untuk menyimpan jumlah data dari Supabase
+  const [projectCount, setProjectCount] = useState(0);
+  const [certificateCount, setCertificateCount] = useState(0);
+
+  // Perhitungan Pengalaman (Synchronous)
+  const YearExperience = useMemo(() => {
+    const startDate = new Date("2023-10-03"); // Ganti tanggal mulai coding kamu disini
     const today = new Date();
     const experience = today.getFullYear() - startDate.getFullYear() -
       (today < new Date(today.getFullYear(), startDate.getMonth(), startDate.getDate()) ? 1 : 0);
+    return experience;
+  }, []);
 
-    return {
-      totalProjects: storedProjects.length,
-      totalCertificates: storedCertificates.length,
-      YearExperience: experience
+  // Fetch data dari Supabase
+  useEffect(() => {
+    const fetchCounts = async () => {
+      // Ambil jumlah projects
+      const { count: projCount, error: projError } = await supabase
+        .from('projects')
+        .select('*', { count: 'exact', head: true });
+      
+      if (!projError) {
+        setProjectCount(projCount);
+      }
+
+      // Ambil jumlah certificates
+      const { count: certCount, error: certError } = await supabase
+        .from('certificates')
+        .select('*', { count: 'exact', head: true });
+      
+      if (!certError) {
+        setCertificateCount(certCount);
+      }
     };
+
+    fetchCounts();
   }, []);
 
   // Optimized AOS initialization
@@ -154,12 +176,12 @@ const AboutPage = () => {
     };
   }, []);
 
-  // Memoized stats data
+  // Memoized stats data (Sekarang menggunakan State dari Supabase)
   const statsData = useMemo(() => [
     {
       icon: Code,
       color: "from-[#6366f1] to-[#a855f7]",
-      value: totalProjects,
+      value: projectCount, // Menggunakan state
       label: "Total Projects",
       description: "Innovative web solutions crafted",
       animation: "fade-right",
@@ -167,7 +189,7 @@ const AboutPage = () => {
     {
       icon: Award,
       color: "from-[#a855f7] to-[#6366f1]",
-      value: totalCertificates,
+      value: certificateCount, // Menggunakan state
       label: "Certificates",
       description: "Professional skills validated",
       animation: "fade-up",
@@ -180,7 +202,7 @@ const AboutPage = () => {
       description: "Continuous learning journey",
       animation: "fade-left",
     },
-  ], [totalProjects, totalCertificates, YearExperience]);
+  ], [projectCount, certificateCount, YearExperience]);
 
   return (
     <div
@@ -235,7 +257,7 @@ const AboutPage = () => {
         </div>
         
         <blockquote className="text-gray-300 text-center lg:text-left italic font-medium text-sm relative z-10 pl-6">
-          "Leveraging AI as a professional tool, not a replacement."
+          "In engineering we trust and smart boy will always be the top tier or your type."
         </blockquote>
       </div>
 
