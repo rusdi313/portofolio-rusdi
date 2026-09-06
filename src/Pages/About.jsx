@@ -236,7 +236,7 @@ const AboutPage = () => {
               data-aos="fade-right"
               data-aos-duration="1500"
             >
-              Seorang Mahasiswa Teknik Informatika yang memiliki ketertarikan besar dalam pengembangan Website. Saya berfokus pada menciptakan pengalaman digital yang menarik dan selalu berusaha memberikan solusi terbaik dalam setiap proyek yang saya kerjakan.
+              Seorang Mahasiswa Teknik Informatika yang memiliki ketertarikan besar dalam pengembangan Aplikasi. Saya berfokus pada menciptakan pengalaman digital yang menarik dan selalu berusaha memberikan solusi terbaik dalam setiap proyek yang saya kerjakan.
             </p>
 
             {/* Quote Section */}
@@ -291,13 +291,17 @@ const AboutPage = () => {
           <ProfileImage />
         </div>
 
-        <a href="#Portofolio">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16 cursor-pointer">
-            {statsData.map((stat) => (
-              <StatCard key={stat.label} {...stat} />
+            {statsData.map((stat) => stat.label === "Years of Experience" ? (
+              <a key={stat.label} href="#Experience" aria-label="View work experience" className="block rounded-2xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-purple-400">
+                <StatCard {...stat} />
+              </a>
+            ) : (
+              <a key={stat.label} href="#Portofolio" className="block rounded-2xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-purple-400">
+                <StatCard {...stat} />
+              </a>
             ))}
           </div>
-        </a>
       </div>
 
       <style jsx>{`

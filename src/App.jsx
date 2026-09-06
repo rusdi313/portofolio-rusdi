@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import "./index.css";
 import Home from "./Pages/Home";
 import About from "./Pages/About";
+import Experience from "./Pages/Experience";
 import AnimatedBackground from "./components/Background";
 import Navbar from "./components/Navbar";
 import Portofolio from "./Pages/Portofolio";
@@ -28,6 +29,7 @@ const LandingPage = ({ showWelcome, setShowWelcome }) => {
           <AnimatedBackground />
           <Home />
           <About />
+          <Experience />
           <Portofolio />
           <ContactPage />
           <footer>

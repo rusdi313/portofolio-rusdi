@@ -20,11 +20,12 @@ import { Code, Award, Boxes } from "lucide-react";
 
 const ToggleButton = ({ onClick, isShowingMore }) => (
   <button
+    type="button"
+    aria-expanded={isShowingMore}
     onClick={onClick}
     className="
-      px-3 py-1.5
-      text-slate-300 
-      hover:text-white 
+      w-full min-h-11 px-5 py-3
+      text-white
       text-sm 
       font-medium 
       transition-all 
@@ -32,21 +33,20 @@ const ToggleButton = ({ onClick, isShowingMore }) => (
       ease-in-out
       flex 
       items-center 
+      justify-center
       gap-2
-      bg-white/5 
-      hover:bg-white/10
-      rounded-md
-      border 
-      border-white/10
-      hover:border-white/20
-      backdrop-blur-sm
+      bg-gradient-to-r from-indigo-500 to-purple-500
+      hover:from-indigo-600 hover:to-purple-600
+      rounded-xl
+      focus-visible:outline focus-visible:outline-2
+      focus-visible:outline-offset-4 focus-visible:outline-purple-400
       group
       relative
       overflow-hidden
     "
   >
     <span className="relative z-10 flex items-center gap-2">
-      {isShowingMore ? "See Less" : "See More"}
+      {isShowingMore ? "Show Less" : "Show More"}
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="16"
@@ -66,7 +66,6 @@ const ToggleButton = ({ onClick, isShowingMore }) => (
         <polyline points={isShowingMore ? "18 15 12 9 6 15" : "6 9 12 15 18 9"}></polyline>
       </svg>
     </span>
-    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-purple-500/50 transition-all duration-300 group-hover:w-full"></span>
   </button>
 );
 
