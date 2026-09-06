@@ -24,3 +24,6 @@ dist/
 *.sln
 *.sw?
 *.env
+
+# Local Supabase setup and seed files
+/supabase/
