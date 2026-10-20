@@ -31,7 +31,7 @@ function Navigation() {
 function Skills() {
   const state = usePortfolioTable('skills');
   const groups = [...new Set(state.data.map(skill => skill.category))];
-  return <Section id="Skills" number="02" label="Capabilities" title="Skills & tools" description="Keahlian teknis untuk memahami sistem, menemukan masalah, dan membangun solusi.">
+  return <Section id="Skills" title="Technic & Skills" description="Keahlian teknis untuk memahami sistem, menemukan masalah, dan membangun solusi.">
     <DataState state={state} />
     <div className="skills-grid">{groups.map((group, index) => {
       const Icon = [ShieldCheck, Terminal, Network, BriefcaseBusiness, Terminal, Network][index % 6];
@@ -44,20 +44,21 @@ function Projects() {
   const state = usePortfolioTable('projects');
   const [filter, setFilter] = useState('Web Development');
   const [showAll, setShowAll] = useState(false);
-  const categories = ['Web Development', 'CyberSecurity'];
+  const categories = ['CyberSecurity', 'Web Development'];
 
   const projects = state.data.filter(project => {
     const cat = (project.category || '').toLowerCase().replace(/[\s-_]/g, '');
-    if (filter === 'Web Development') {
-      return cat.includes('web') || cat.includes('dev') || (!cat.includes('cyber') && !cat.includes('sec'));
-    }
     if (filter === 'CyberSecurity') {
       return cat.includes('cyber') || cat.includes('sec');
+    }
+
+    if (filter === 'Web Development') {
+      return cat.includes('web') || cat.includes('dev') || (!cat.includes('cyber') && !cat.includes('sec'));
     }
     return true;
   }).sort((a, b) => Number(Boolean(b.featured)) - Number(Boolean(a.featured)));
 
-  return <Section id="Portofolio" number="03" label="Selected work" title="Projects & activities" description="Dari pengujian keamanan hingga otomasi pekerjaan sehari-hari. Setiap proyek punya cerita dan prosesnya sendiri.">
+  return <Section id="Portofolio"  title="Projects & activities" description="Dari pengujian keamanan hingga otomasi pekerjaan sehari-hari. Setiap proyek punya cerita dan prosesnya sendiri.">
     <DataState state={state} />
     {!!state.data.length && <div className="filters" role="group" aria-label="Filter kategori proyek">
       {categories.map(category => (
@@ -94,7 +95,7 @@ function Experience() {
   const state = usePortfolioTable('experiences');
   const [filter, setFilter] = useState('Semua');
   const rows = state.data.filter(row => filter === 'Semua' || (filter === 'Organisasi' ? row.type === 'Organization' : row.type !== 'Organization'));
-  return <Section id="Experience" number="04" label="Career journey" title="Pengalaman & kontribusi" description="Pengalaman langsung di lingkungan kerja, infrastruktur pendidikan, dan organisasi mahasiswa.">
+  return <Section id="Experience" title="Pengalaman & kontribusi" description="Pengalaman langsung di lingkungan kerja, infrastruktur pendidikan, dan organisasi mahasiswa.">
     <DataState state={state} />
     <div className="filters" role="group" aria-label="Jenis pengalaman">{['Semua', 'Kerja', 'Organisasi'].map(type => <button key={type} aria-pressed={filter === type} onClick={() => setFilter(type)}>{type}</button>)}</div>
     {!rows.length && !!state.data.length && <p className="data-state">Belum ada pengalaman dalam kategori ini.</p>}
@@ -112,7 +113,7 @@ function Certifications() {
   const state = usePortfolioTable('certificates');
   const [showAll, setShowAll] = useState(false);
   const rows = [...state.data].sort((a, b) => Number(Boolean(b.featured)) - Number(Boolean(a.featured)));
-  return <Section id="Certifications" number="05" label="Continuous learning" title="Sertifikasi profesional" description="Fondasi pembelajaran di bidang cybersecurity, networking, dan teknologi informasi.">
+  return <Section id="Certifications" title="Sertifikasi profesional" description="Fondasi pembelajaran di bidang cybersecurity, networking, dan teknologi informasi.">
     <DataState state={state} />
     <div className="certificate-grid">{(showAll ? rows : rows.slice(0, 6)).map(row => {
       const title = row.name || row.Title || 'Sertifikat';
@@ -164,7 +165,7 @@ function Certifications() {
 
 function Education() {
   const state = usePortfolioTable('education');
-  return <Section id="Education" number="06" label="Foundations" title="Pendidikan">
+  return <Section id="Education" title="Pendidikan">
     <DataState state={state} /><div className="education-grid">{state.data.map(row => <article key={row.id} className="panel education-card"><GraduationCap aria-hidden="true" /><p className="eyebrow">{row.period}</p><h3>{row.institution}</h3><p className="company">{row.degree}</p>{row.gpa && <p className="gpa">IPK {row.gpa}</p>}<ul className="bullet-list">{asList(row.highlights).map((item, index) => <li key={index}>{item}</li>)}</ul></article>)}</div>
   </Section>;
 }
@@ -228,7 +229,7 @@ export default function PortfolioSite() {
     <main id="main-content" className="site-container">
       <AboutSection profile={profile} />
       <Skills /><Projects /><Experience /><Certifications /><Education />
-      <Section id="Contact" number="07" label="Get in touch" title={profile?.contact_title || 'Mari terhubung.'} description={profile?.contact_description}>
+      <Section id="Contact" title={profile?.contact_title || 'Mari terhubung.'} description={profile?.contact_description}>
         {profile && <div className="contact-panel panel"><div><p className="eyebrow">Start a conversation</p>{email && <a className="contact-email" href={`mailto:${email}`}><Mail aria-hidden="true" />{email}<ArrowUpRight aria-hidden="true" /></a>}<p className="muted">{profile.location}</p></div><div className="contact-links"><ExternalLink href={profile.linkedin_url}>LinkedIn</ExternalLink><ExternalLink href={profile.github_url}>GitHub</ExternalLink><ExternalLink href={profile.cv_url}>Curriculum vitae</ExternalLink></div></div>}
       </Section>
     </main><footer className="site-footer"><span>© {new Date().getFullYear()} {profile?.name || 'Rusdi Aulia Romadhon'}</span><a href="#Home">Kembali ke atas ↑</a></footer>
