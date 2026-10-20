@@ -112,7 +112,12 @@ function Experience() {
 function Certifications() {
   const state = usePortfolioTable('certificates');
   const [showAll, setShowAll] = useState(false);
-  const rows = [...state.data].sort((a, b) => Number(Boolean(b.featured)) - Number(Boolean(a.featured)));
+  const rows = [...state.data].sort((a, b) => {
+    if (Boolean(b.featured) !== Boolean(a.featured)) {
+      return Number(Boolean(b.featured)) - Number(Boolean(a.featured));
+    }
+    return Number(b.id) - Number(a.id);
+  });
   return <Section id="Certifications" title="Sertifikasi profesional" description="Fondasi pembelajaran di bidang cybersecurity, networking, dan teknologi informasi.">
     <DataState state={state} />
     <div className="certificate-grid">{(showAll ? rows : rows.slice(0, 6)).map(row => {
