@@ -25,5 +25,6 @@ dist/
 *.sw?
 *.env
 
-# Local Supabase setup and seed files
-/supabase/
+# Local verification output and upload staging
+.verification/
+/supabase/uploads/
