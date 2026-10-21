@@ -4,7 +4,7 @@
 @tailwind utilities;
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; scrollbar-width: thin; scrollbar-color: #572032 #080d14; }
+html { scroll-behavior: smooth; scrollbar-width: thin; scrollbar-color: #572032 #080d14; overflow-y: scroll; }
 body { margin: 0; background: #070b13; font-family: 'DM Sans', sans-serif; }
 button, input, textarea { font: inherit; }
 button, summary { cursor: pointer; }
